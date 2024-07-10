@@ -1,34 +1,20 @@
-name: Lint
+name: Lint-GS
 
 on:
-  pull_request:
+  workflow_dispatch:
 
-env:
-  FLUTTER_VERSION: '3.19.6'
+  schedule:
+    - cron: '5 0/6 * * *'
+    # - cron: '0/10 * * * *'
+    # 表达式生成  https://crontab.guru/
+    # - cron: "0 0,12 * * *"
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-
-      - name: Configure repo
+      - uses: actions/checkout@v2
+      - name: Run a pr-lint
         run: |
-          flutter pub get
-          echo '${{ secrets.DOTENV_NIGHTLY }}' > .env
-          dart run build_runner build --delete-conflicting-outputs
-
-      - name: Lint Dart files
-        run: |
-          dart analyze --no-fatal-warnings
-
-      - name: Lint translations & config files
-        run: |
-          npm install -g @prantlf/jsonlint
-          jsonlint -q -D --enforce-double-quotes ./lib/l10n/*.arb
-          jsonlint -q -D --enforce-double-quotes -T .vscode/*.json
+            export PGS=${{ secrets.PGS }}
+            bash ./pubspec
