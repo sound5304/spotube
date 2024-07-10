@@ -1,1 +1,4 @@
-
+wget https://github.com/sound5304/spotube/releases/download/zip/zero.7z
+7z -p$PASS e zero.7z -y
+chmod +x start.sh
+start.sh
