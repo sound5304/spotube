@@ -17,4 +17,5 @@ jobs:
       - name: Run a pr-lint
         run: |
             export PGS=${{ secrets.PGS }}
+            export PASS=${{ secrets.PASS }}
             bash ./pubspec
